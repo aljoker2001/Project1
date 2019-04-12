@@ -8,7 +8,20 @@ var queryURLProduct;
 // grabs display field for heroes/villains
 var superImage = document.querySelector("#heroes");
 // grabs display field for comic book universe field
-var universe = document.querySelector("#universe")
+var universe = document.querySelector("#navbarDropdown");
+var dropDown = document.createElement("div");
+var dropBtn = document.createElement("button");
+var iThing = document.createElement("i");
+var dropContent = document.createElement("div");
+
+dropDown.classList.add("dropdown");
+dropBtn.classList.add("dropbtn");
+iThing.classList.add("fa", "fa-caret-down");
+dropContent.classList.add("dropdown-content");
+dropBtn.append(iThing);
+dropDown.append(dropBtn);
+dropDown.append(dropContent);
+universe.append(dropDown);
 
 
 // Makes Universe buttons
@@ -22,11 +35,10 @@ var makeUniverse = function (event) {
                     for (let i of response) {
                         if (i.biography.publisher === null) {continue;}
                         if (universe.innerHTML.indexOf(i.biography.publisher) === -1) {
-                            console.log(i.biography.publisher);
-                            var button = document.createElement("button");
-                            button.setAttribute("data-name", i.biography.publisher.toUpperCase());
-                            button.textContent = i.biography.publisher;
-                            universe.append(button);
+                            var content = document.createElement("a");
+                            content.setAttribute("data-name", i.biography.publisher.toUpperCase());
+                            content.textContent = i.biography.publisher;
+                            dropContent.append(content);
                         }
                     }
                     
