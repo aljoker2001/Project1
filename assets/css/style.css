@@ -1,9 +1,18 @@
-.container {
-    width: 100%;
+.jumbotron {
+    background-image: url('images/marvel_superheroes.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: black;
 }
 
-button {
-    margin-left: 5px;
-    margin-top: 5px;
-    padding: 10px;
+.lead {
+    font-family: 'Oswald', sans-serif;
+    font-size: 30px;
+    color: ;
+}
+
+.display-4{
+    color: rgb(206, 146, 55);
+    font-family: 'Oswald', sans-serif;
+    -webkit-text-stroke: 1px white;
 }
