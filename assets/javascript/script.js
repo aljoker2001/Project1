@@ -1,16 +1,63 @@
+// placeholder for heroes associated with their ID as detailed in the api
 var heroes = {};
 var queryURLSuper = "https://akabab.github.io/superhero-api/api/all.json";
 var APIKey = "AlexMcRa-s-PRD-3ea920fd0-a7db069e";
 var hero;
 var product;
 var queryURLProduct;
+// grabs display field for heroes/villains
+var superImage = document.querySelector("#heroes");
+// grabs display field for comic book universe field
+var universe = document.querySelector("#universe")
 
+
+// Makes Universe buttons
+var makeUniverse = function (event) {
+        if (window.fetch) {
+            fetch(queryURLSuper, {
+                method: "GET"
+            })
+                .then(result => result.json())
+                .then(response => {
+                    for (let i of response) {
+                        if (i.biography.publisher === null) {continue;}
+                        if (universe.innerHTML.indexOf(i.biography.publisher) === -1) {
+                            console.log(i.biography.publisher);
+                            var button = document.createElement("button");
+                            button.setAttribute("data-name", i.biography.publisher.toUpperCase());
+                            button.textContent = i.biography.publisher;
+                            universe.append(button);
+                        }
+                    }
+                    
+
+                })
+        } else {
+            let xhr = new XMLHttpRequest();
+            xhr.open("GET", queryURLSuper);
+            xhr.onload = (event) => {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        parsed = JSON.parse(xhr.responseText);
+                    }
+                } else {
+                    console.error(xhr.responseText);
+                }
+            }
+            xhr.onerror = (event) => {
+                console.error(xhr.responseText);
+            }
+            xhr.send();
+        }
+}
+
+// Pulls products from ebay based on the selected superhero/villain
 var getProducts = function (event) {
     product = event.target.dataset.name.replace(" ", "+")
-    queryURLProduct = `http://open.api.ebay.com/shopping?callname=FindProducts&responseencoding=XML&appid=${APIKey}&siteid=0&QueryKeywords=${product}+comic&version=1063`;
+    queryURLProduct = `http://open.api.ebay.com/shopping?callname=FindProducts&responseencoding=XML&appid=${APIKey}&siteid=0&QueryKeywords=${product}+superhero&version=1063`;
     if (event.target.tagName) {
         if (window.fetch) {
-            fetch(queryURL, {
+            fetch(queryURLProduct, {
                 method: "GET"
             })
                 .then(result => result.json())
@@ -39,11 +86,21 @@ var getProducts = function (event) {
     }
 }
 
+// pulls information and image for the heroes tied to that commic universe
 var getSuperData = function (event) {
+    if (window.fetch) {
+        fetch(queryURLSuper, {
+            method: "GET"
+        })
+        .then(result => result.json())
+        .then(response => {
+            Object.keys(heroes).find(key => heroes[key] === event.target.dataset.name)
 
+        })
+    }
 }
 
-
+// creates an object of all heroes with a key of their ID and a value of their name
 var makeHeroes = () => {
     if (window.fetch) {
         fetch(queryURLSuper, {
@@ -53,7 +110,7 @@ var makeHeroes = () => {
             .then(response => {
                 console.log(response);
                 for (i of response) {
-                    console.log(i);
+                    // console.log(i.biography.publisher.toUpperCase());
                     heroes[i.id] = i.name.toUpperCase();
                 }
             })
@@ -82,5 +139,8 @@ var makeHeroes = () => {
 }
 
 makeHeroes();
-
+makeUniverse();
 // Object.keys(heroes).find(key => heroes[key] === "Spider-Man")
+
+// populate universe buttons, assign data-name tags
+// 
