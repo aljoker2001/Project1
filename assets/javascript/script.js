@@ -19,6 +19,7 @@ var iThing = document.createElement("i");
 var dropContent = document.createElement("div");
 var display = document.querySelector("#display");
 var bio;
+var close;
 
 dropDown.classList.add("dropdown");
 dropBtn.classList.add("dropbtn");
@@ -72,6 +73,11 @@ var makeUniverse = function (event) {
 // pulls from super hero API to populate bio details in modal
 var createModalBio = (event) => {
     modalContent.innerHTML = "";
+    var span = document.createElement("span");
+    span.classList.add("close");
+    span.textContent = "X";
+    modalContent.append(span);
+    close = document.querySelector(".close");
     modal.style.display = "block";
     var heroId = Object.keys(heroes).find(key => heroes[key] === event.target.dataset.name)
     bio = document.createElement("div");
@@ -94,12 +100,6 @@ var createModalBio = (event) => {
                 race.innerHTML = `<strong>Race: </strong>${superAPIResults[i].appearance.race}`;
                 pob.innerHTML = `<strong>Place of Birth: </strong>${superAPIResults[i].biography.placeOfBirth}`;
                 occupation.innerHTML = `<strong>Occupation: </strong>${superAPIResults[i].work.occupation}`;
-                console.log(name.textContent);
-                console.log(height.textContent);
-                console.log(weight.textContent);
-                console.log(race.textContent);
-                console.log(pob.textContent);
-                console.log(occupation.textContent);
                 bio.append(headshot);
                 bio.append(name);
                 bio.append(height);
@@ -145,7 +145,6 @@ var getGIF = function (event) {
                         console.log(image);
                         gifContainer.append(image);
                         bio.append(gifContainer);
-                        superImage.append("Hello");
                     }
                 })
         } else {

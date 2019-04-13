@@ -150,6 +150,7 @@ body {
   font-size: 28px;
   font-weight: bold;
   padding: 10px;
+  width: max-content;
 }
 
 .close:hover,
