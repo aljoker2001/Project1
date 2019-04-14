@@ -10,24 +10,27 @@ var superAPIResults;
 // grabs display field for heroes/villains
 var superImage = document.querySelector("#heroes");
 // grabs display field for comic book universe field
-var universe = document.querySelector("#navbarDropdown");
-var modalContent = document.querySelector(".modal-content");
-var modal = document.querySelector(".modal");
+var universe = document.querySelector(".dropdown-content");
+var modalContent = document.querySelector(".m-content");
+var modal = document.querySelector(".mode");
 var dropDown = document.createElement("div");
 var dropBtn = document.createElement("button");
 var iThing = document.createElement("i");
 var dropContent = document.createElement("div");
 var display = document.querySelector("#display");
+var contentHolder = document.querySelector("#contentHolder");
 var bio;
+var close;
+var dataAttr;
 
-dropDown.classList.add("dropdown");
-dropBtn.classList.add("dropbtn");
-iThing.classList.add("fa", "fa-caret-down");
-dropContent.classList.add("dropdown-content");
-dropBtn.append(iThing);
-dropDown.append(dropBtn);
-dropDown.append(dropContent);
-universe.append(dropDown);
+// dropDown.classList.add("dropdown");
+// dropBtn.classList.add("dropbtn");
+// iThing.classList.add("fa", "fa-caret-down");
+// dropContent.classList.add("dropdown-content");
+// dropBtn.append(iThing);
+// dropDown.append(dropBtn);
+// dropDown.append(dropContent);
+// universe.append(dropDown);
 
 
 // Makes Universe buttons
@@ -39,16 +42,22 @@ var makeUniverse = function (event) {
             .then(result => result.json())
             .then(response => {
                 for (let i of response) {
+                    // If the publisher key is null, then it is skipped
                     if (i.biography.publisher === null) { continue; }
+                    // if the current publisher has not yet been added to the dropdown, then the function continues and adds it to the dropdown
                     if (universe.innerHTML.indexOf(i.biography.publisher) === -1) {
                         var content = document.createElement("a");
                         content.setAttribute("data-name", i.biography.publisher.toUpperCase());
+                        content.classList.add("publisher");
                         content.textContent = i.biography.publisher;
-                        dropContent.append(content);
+                        universe.append(content);
                     }
                 }
-
-
+                // pulls all drop down items and adds an event listener for each.  If clicked, getSuperData runs
+                dataAttr = document.getElementsByClassName("publisher");
+                for (let pub of dataAttr) {
+                    pub.addEventListener("click", getSuperData);
+                }
             })
     } else {
         let xhr = new XMLHttpRequest();
@@ -75,7 +84,12 @@ var createModalBio = (event) => {
     modal.style.display = "block";
     var heroId = Object.keys(heroes).find(key => heroes[key] === event.target.dataset.name)
     bio = document.createElement("div");
-    bio.setAttribute("id", "modalBio")
+    bio.setAttribute("id", "modalBio");
+    var x = document.createElement("span");
+    x.classList.add("close");
+    x.textContent = "X";
+    modalContent.append(x);
+    close = document.querySelector(".close");
     var headshot = document.createElement("img");
     headshot.setAttribute("id", "headshot");
     var name = document.createElement("h2");
@@ -85,7 +99,7 @@ var createModalBio = (event) => {
     var pob = document.createElement("h5");
     var occupation = document.createElement("h5");
     for (i = 0; superAPIResults.length; i++) {
-        for (key in superAPIResults[i]){
+        for (key in superAPIResults[i]) {
             if (superAPIResults[i][key] == heroId) {
                 headshot.setAttribute("src", superAPIResults[i].images.md);
                 name.innerHTML = `<strong>Name: </strong>${superAPIResults[i].name}`;
@@ -94,6 +108,12 @@ var createModalBio = (event) => {
                 race.innerHTML = `<strong>Race: </strong>${superAPIResults[i].appearance.race}`;
                 pob.innerHTML = `<strong>Place of Birth: </strong>${superAPIResults[i].biography.placeOfBirth}`;
                 occupation.innerHTML = `<strong>Occupation: </strong>${superAPIResults[i].work.occupation}`;
+                name.classList.add("funFont");
+                height.classList.add("funFont");
+                weight.classList.add("funFont");
+                race.classList.add("funFont");
+                pob.classList.add("funFont");
+                occupation.classList.add("funFont");
                 console.log(name.textContent);
                 console.log(height.textContent);
                 console.log(weight.textContent);
@@ -116,70 +136,125 @@ var createModalBio = (event) => {
 
 // Pulls gifs from giphy API to populate modal
 var getGIF = function (event) {
-    // Takes the value of the "data-name" attribute for the hero selected and puts it in the variable "product"
-    hero = event.target.dataset.name.replace(" ", "+")
-    // sets variable to the ebay API
-    var GifAPIKey = "cAIArwQuYBrwxNH9AltwAv79OKwGKzQg";
-    queryURLGif = `https://api.giphy.com/v1/gifs/search?api_key=${GifAPIKey}&q=${hero}&limit=5`;
-    // Checks to see if the selected item is a hero or villain based on the class name of "hero".  If it is, then it runs the rest of the function
-    if (event.target.className.indexOf("hero") !== -1) {
-        // pull data from super hero API to populate the modal
-        createModalBio(event);
-        if (window.fetch) {
-            fetch(queryURLGif, {
-                method: "GET"
-            })
-                .then(result => result.json())
-                .then(response => {
-                    var results = response.data;
-                    var gifContainer = document.createElement("div");
-                    gifContainer.classList.add("gifContainer");
-                    console.log(results.length);
-                    console.log(superAPIResults[0].name);
-                    // creates 5 gifs of hero to append to modal
-                    for (i = 0; i < results.length; i++) {
-                        console.log("test: ", results[i]);
-                        var image = document.createElement("img");
-                        image.setAttribute("src", results[i].images.fixed_height.url);
-                        image.classList.add("modalGif");
-                        console.log(image);
-                        gifContainer.append(image);
-                        bio.append(gifContainer);
-                        superImage.append("Hello");
-                    }
+    if (event.target.tagName === "IMG") {
+        console.log(event.target.tagName);
+        // Takes the value of the "data-name" attribute for the hero selected and puts it in the variable "product"
+        hero = event.target.dataset.name.replace(" ", "+")
+        // sets variable to the ebay API
+        var GifAPIKey = "cAIArwQuYBrwxNH9AltwAv79OKwGKzQg";
+        queryURLGif = `https://api.giphy.com/v1/gifs/search?api_key=${GifAPIKey}&q=${hero}+comic&limit=5`;
+        // Checks to see if the selected item is a hero or villain based on the class name of "hero".  If it is, then it runs the rest of the function
+        if (event.target.className.indexOf("hero") !== -1) {
+            // pull data from super hero API to populate the modal
+            createModalBio(event);
+            if (window.fetch) {
+                fetch(queryURLGif, {
+                    method: "GET"
                 })
-        } else {
-            let xhr = new XMLHttpRequest();
-            xhr.open("GET", queryURLGif);
-            xhr.onload = (event) => {
-                if (xhr.readyState === 4) {
-                    if (xhr.status === 200) {
-                        parsed = JSON.parse(xhr.responseText);
+                    .then(result => result.json())
+                    .then(response => {
+                        var results = response.data;
+                        var gifContainer = document.createElement("div");
+                        gifContainer.classList.add("gifContainer");
+                        console.log(results.length);
+                        console.log(superAPIResults[0].name);
+                        // creates 5 gifs of hero to append to modal
+                        for (i = 0; i < results.length; i++) {
+                            console.log("test: ", results[i]);
+                            var image = document.createElement("img");
+                            image.setAttribute("src", results[i].images.fixed_height.url);
+                            image.classList.add("modalGif");
+                            console.log(image);
+                            gifContainer.append(image);
+                            bio.append(gifContainer);
+                        }
+                    })
+            } else {
+                let xhr = new XMLHttpRequest();
+                xhr.open("GET", queryURLGif);
+                xhr.onload = (event) => {
+                    if (xhr.readyState === 4) {
+                        if (xhr.status === 200) {
+                            parsed = JSON.parse(xhr.responseText);
+                        }
+                    } else {
+                        console.error(xhr.responseText);
                     }
-                } else {
+                }
+                xhr.onerror = (event) => {
                     console.error(xhr.responseText);
                 }
+                xhr.send();
             }
-            xhr.onerror = (event) => {
-                console.error(xhr.responseText);
-            }
-            xhr.send();
         }
+        // Closes modal when clicking the "X"
+    }
+
+
+    close.onclick = function () {
+        modal.style.display = "none";
     }
 }
 
 // pulls information and image for the heroes tied to that commic universe
 var getSuperData = function (event) {
-    if (window.fetch) {
-        fetch(queryURLSuper, {
-            method: "GET"
-        })
-            .then(result => result.json())
-            .then(response => {
-                Object.keys(heroes).find(key => heroes[key] === event.target.dataset.name)
-
-            })
+    // clears content of superhero field if there is anything in there
+    superImage.innerHTML = "";
+    for (i = 0; i < superAPIResults.length; i++) {
+        // iterates through various keys of each super hero
+        for (j in superAPIResults[i]) {
+            // If the value of the key is a number, skip it
+            if (typeof superAPIResults[i][j] === "number") { continue; }
+            var value = superAPIResults[i][j];
+            // stores the value of the key in the category variable based on the value
+            var category = Object.keys(superAPIResults[i]).find(key => superAPIResults[i][key] === value);
+            // if the category is not "biography", skip it
+            if (category !== "biography") {
+                // console.log(category);
+                continue;
+            } else {
+                // console.log("value", superAPIResults[i][j]);
+                // console.log(typeof value);
+                // console.log(value);
+                // console.log("key", Object.keys(superAPIResults[i]).find(key => superAPIResults[i][key] === value));
+                // console.log("next value", superAPIResults[i + 1][j]);
+                for (keys in superAPIResults[i][j]) {
+                    value = superAPIResults[i][j][keys]
+                    category = Object.keys(superAPIResults[i][j]).find(key => superAPIResults[i][j][key] === value);
+                    console.log("Biography level keys: ", category);
+                    console.log(typeof category);
+                    // console.log("zero-ith index of value", superAPIResults[i][j][key]);
+                    // return;
+                    if (superAPIResults[i][j][keys] === null) { continue; }
+                    if (category === "publisher") {
+                        console.log(superAPIResults[i][j][keys]);
+                        if (superAPIResults[i][j][keys].toUpperCase() == event.target.dataset.name.toUpperCase()) {
+                            console.log("we made it!")
+                            var thumbnail = document.createElement("div");
+                            thumbnail.classList.add("hero");
+                            thumbnail.setAttribute("data-name", superAPIResults[i].name.toUpperCase());
+                            var image = document.createElement("img");
+                            var name = document.createElement("h4");
+                            image.setAttribute("src", superAPIResults[i].images.sm);
+                            image.setAttribute("data-name", superAPIResults[i].name.toUpperCase());
+                            image.classList.add("hero");
+                            name.classList.add("superName");
+                            name.textContent = superAPIResults[i].name;
+                            thumbnail.append(image);
+                            thumbnail.append(name);
+                            superImage.append(thumbnail);
+                        } else {
+                            console.log("hmmm");
+                        }
+                    }
+                }
+            }
+        }
     }
+    // var heroId = Object.keys(heroes).find(key => heroes[key] === event.target.dataset.name);
+
+
+
 }
 
 // creates an object of all heroes with a key of their ID and a value of their name
@@ -222,27 +297,17 @@ var makeHeroes = () => {
     }
 }
 
-// if you click outside of the modal, it will close
-window.onclick = function (event) {
-    if (event.target == modal) {
-      modal.style.display = "none";
-    }
-  }
-  
-  // Closes modal when clicking the "X"
-  close.onclick = function () {
-    modal.style.display = "none";
-  }
 
 makeHeroes();
 makeUniverse();
-superImage.addEventListener("click", getGIF);
+contentHolder.addEventListener("click", getGIF);
+// contentHolder.addEventListener("click", function(event) {
+//     alert(event.target.tagName);
+// });
 
-// document.querySelector("#heroes").addEventListener("click", function myFunction(event) {
-//     console.log("my click event: ", event);
-//     console.log("my target's tag name", event.target.dataset.name);
-//     console.log(Object.keys(heroes).find(key => heroes[key] === event.target.dataset.name));
-// })
-
-// populate universe buttons, assign data-name tags
-// 
+// if you click outside of the modal, it will close
+window.onclick = function (event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
