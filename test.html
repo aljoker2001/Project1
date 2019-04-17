@@ -1,28 +1,71 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+  <title>Circles</title>
+  <style>
+    #canvas .circle {
+      display: inline-block;
+      margin: 1em;
+    }
+
+    .circles-decimals {
+      font-size: .4em;
+    }
+  </style>
 </head>
+
 <body>
-    <div id="field">
-        <button>1</button>
-        <button>2</button>
-        <button>3</button>
-        <button>4</button>
+  <div id="canvas">
+    <div id="strength">
+      <div class="circle" id="circles-1"></div>
+      <p>Strength</p>
     </div>
-    <div class="circles-wrp" style="position: relative; display: inline-block;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80">
-              <path fill="transparent" stroke="#D3B6C6" stroke-width="7" d="M 39.992565928065126 3.500000757060633 A 36.5 36.5 0 1 1 39.949302232260386 3.500035209108127 Z"></path>
-              <path fill="transparent" stroke="#4B253A" stroke-width="7" d="M 39.992565928065126 3.500000757060633 A 36.5 36.5 0 0 1 59.07174573163989 71.12103010421852 "></path>
-            </svg>
-            <div class="circles-text" style="position: absolute; top: 0px; left: 0px; text-align: center; width: 100%; font-size: 28px; height: 80px; line-height: 80px;">
-              <span class="circles-integer">41</span>.
-              <span class="circles-decimals">26</span>
-            </div>
-          </div>
-          
+    <div id="int">
+      <div class="circle" id="circles-2"></div>
+      <p>Strength</p>
+    </div>
+    <div id="end">
+      <div class="circle" id="circles-3"></div>
+      <p>Strength</p>
+    </div>
+    <div id="stam">
+      <div class="circle" id="circles-4"></div>
+      <p>Strength</p>
+    </div>
+    <div id="wis">
+      <div class="circle" id="circles-5"></div>
+      <p>Strength</p>
+    </div>
+  </div>
+
+  <script src="assets/javascript/circles.min.js"></script>
+  <script>
+    var colors = [
+      ['#D3B6C6', '#4B253A'], ['#FCE6A4', '#EFB917'], ['#BEE3F7', '#45AEEA'], ['#F8F9B6', '#D2D558'], ['#F4BCBF', '#D43A43']
+    ],
+      circles = [];
+    for (var i = 1; i <= 5; i++) {
+      var child = document.getElementById('circles-' + i),
+        percentage = 31.42 + (i * 9.84),
+
+        circle = Circles.create({
+          id: child.id,
+          value: percentage,
+          radius: getWidth(),
+          width: 10,
+          colors: colors[i - 1]
+        });
+      circles.push(circle);
+    }
+    window.onresize = function (e) {
+      for (var i = 0; i < circles.length; i++) {
+        circles[i].updateRadius(getWidth());
+      }
+    };
+    function getWidth() {
+      return window.innerWidth / 20;
+    }
+  </script>
 </body>
+
 </html>

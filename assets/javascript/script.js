@@ -10,7 +10,7 @@ var superAPIResults;
 // grabs display field for heroes/villains
 var superImage = document.querySelector("#heroes");
 // grabs display field for comic book universe field
-var universe = document.querySelector(".dropdown-content");
+var universe = document.querySelector(".dropdown-menu");
 var modalContent = document.querySelector(".m-content");
 var modal = document.querySelector(".mode");
 var dropDown = document.createElement("div");
@@ -22,6 +22,27 @@ var contentHolder = document.querySelector("#contentHolder");
 var bio;
 var close;
 var dataAttr;
+var currentHero;
+var canvas = document.createElement("div");
+canvas.setAttribute("id", "canvas");
+// var circle1 = document.createElement("div");
+// var circle2 = document.createElement("div");
+// var circle3 = document.createElement("div");
+// var circle4 = document.createElement("div");
+// var circle5 = document.createElement("div");
+// var circle6 = document.createElement("div");
+// circle1.classList.add("circle");
+// circle2.classList.add("circle");
+// circle3.classList.add("circle");
+// circle4.classList.add("circle");
+// circle5.classList.add("circle");
+// circle6.classList.add("circle");
+// circle1.setAttribute("id", "circles-1");
+// circle2.setAttribute("id", "circles-2");
+// circle3.setAttribute("id", "circles-3");
+// circle4.setAttribute("id", "circles-4");
+// circle5.setAttribute("id", "circles-5");
+// circle6.setAttribute("id", "circles-6");
 
 // dropDown.classList.add("dropdown");
 // dropBtn.classList.add("dropbtn");
@@ -32,9 +53,50 @@ var dataAttr;
 // dropDown.append(dropContent);
 // universe.append(dropDown);
 
+// creates an object of all heroes with a key of their ID and a value of their name
+var makeHeroes = () => {
+    if (window.fetch) {
+        fetch(queryURLSuper, {
+            method: "GET"
+        })
+            .then(result => result.json())
+            .then(response => {
+                console.log(response);
+                // stores fetch response in global variable for access in other functions
+                superAPIResults = response;
+                for (i of response) {
+                    // console.log(i.biography.publisher.toUpperCase());
+                    heroes[i.id] = i.name.toUpperCase();
+                }
+            })
+    } else {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", queryURLSuper);
+        xhr.onload = (event) => {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    superAPIResults = JSON.parse(xhr.responseText);
+                    console.log(superAPIResults);
+                    for (i of superAPIResults) {
+                        console.log(i);
+                        heroes[i.id] = i.name.toUpperCase();
+                    }
+                }
+            } else {
+                console.error(xhr.responseText);
+            }
+        }
+        xhr.onerror = (event) => {
+            console.error(xhr.responseText);
+        }
+        xhr.send();
+    }
+}
 
 // Makes Universe buttons
 var makeUniverse = function (event) {
+
+
     if (window.fetch) {
         fetch(queryURLSuper, {
             method: "GET"
@@ -48,7 +110,7 @@ var makeUniverse = function (event) {
                     if (universe.innerHTML.indexOf(i.biography.publisher) === -1) {
                         var content = document.createElement("a");
                         content.setAttribute("data-name", i.biography.publisher.toUpperCase());
-                        content.classList.add("publisher");
+                        content.classList.add("publisher", "dropdown-item");
                         content.textContent = i.biography.publisher;
                         universe.append(content);
                     }
@@ -101,6 +163,7 @@ var createModalBio = (event) => {
     for (i = 0; superAPIResults.length; i++) {
         for (key in superAPIResults[i]) {
             if (superAPIResults[i][key] == heroId) {
+                currentHero = superAPIResults[i];
                 headshot.setAttribute("src", superAPIResults[i].images.md);
                 name.innerHTML = `<strong>Name: </strong>${superAPIResults[i].name}`;
                 height.innerHTML = `<strong>Height: </strong>${superAPIResults[i].appearance.height[0]}`;
@@ -114,12 +177,6 @@ var createModalBio = (event) => {
                 race.classList.add("funFont");
                 pob.classList.add("funFont");
                 occupation.classList.add("funFont");
-                console.log(name.textContent);
-                console.log(height.textContent);
-                console.log(weight.textContent);
-                console.log(race.textContent);
-                console.log(pob.textContent);
-                console.log(occupation.textContent);
                 bio.append(headshot);
                 bio.append(name);
                 bio.append(height);
@@ -127,6 +184,7 @@ var createModalBio = (event) => {
                 bio.append(race);
                 bio.append(pob);
                 bio.append(occupation);
+                getCircles(event);
                 modalContent.append(bio);
                 return
             }
@@ -134,7 +192,39 @@ var createModalBio = (event) => {
     }
 }
 
-// Pulls gifs from giphy API to populate modal
+var getCircles = (event) => {
+    var colors = [
+        ['#D3B6C6', '#4B253A'], ['#FCE6A4', '#EFB917'], ['#BEE3F7', '#45AEEA'], ['#F8F9B6', '#D2D558'], ['#F4BCBF', '#D43A43'], ['#8cbb9a', '#19913d']
+    ],
+        circles = [];
+    for (var i = 1; i <= 6; i++) {
+        var circlex = document.createElement("div");
+        circlex.classList.add("circle")
+        circlex.setAttribute("id", "circles-" + i);
+        console.log(circlex);
+        var stat = currentHero.powerstats[0],
+            circle = Circles.create({
+                id: circlex.id,
+                value: stat,
+                radius: getWidth(),
+                width: 10,
+                colors: colors[i - 1]
+            });
+        circles.push(circle);
+        canvas.append(circle);
+    }
+    bio.append(canvas);
+    window.onresize = function (e) {
+        for (var i = 0; i < circles.length; i++) {
+            circles[i].updateRadius(getWidth());
+        }
+    };
+    function getWidth() {
+        return window.innerWidth / 20;
+    }
+}
+
+// Pulls gifs from giphy API to populate modal and also creates modal bio using createModalBio function
 var getGIF = function (event) {
     if (event.target.tagName === "IMG") {
         console.log(event.target.tagName);
@@ -200,6 +290,7 @@ var getGIF = function (event) {
 var getSuperData = function (event) {
     // clears content of superhero field if there is anything in there
     superImage.innerHTML = "";
+    document.querySelector("#dropdownMenuButton").textContent = event.target.dataset.name;
     for (i = 0; i < superAPIResults.length; i++) {
         // iterates through various keys of each super hero
         for (j in superAPIResults[i]) {
@@ -257,45 +348,6 @@ var getSuperData = function (event) {
 
 }
 
-// creates an object of all heroes with a key of their ID and a value of their name
-var makeHeroes = () => {
-    if (window.fetch) {
-        fetch(queryURLSuper, {
-            method: "GET"
-        })
-            .then(result => result.json())
-            .then(response => {
-                console.log(response);
-                // stores fetch response in global variable for access in other functions
-                superAPIResults = response;
-                for (i of response) {
-                    // console.log(i.biography.publisher.toUpperCase());
-                    heroes[i.id] = i.name.toUpperCase();
-                }
-            })
-    } else {
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", queryURLSuper);
-        xhr.onload = (event) => {
-            if (xhr.readyState === 4) {
-                if (xhr.status === 200) {
-                    parsed = JSON.parse(xhr.responseText);
-                    console.log(parsed);
-                    for (i of parsed) {
-                        console.log(i);
-                        heroes[i.id] = i.name.toUpperCase();
-                    }
-                }
-            } else {
-                console.error(xhr.responseText);
-            }
-        }
-        xhr.onerror = (event) => {
-            console.error(xhr.responseText);
-        }
-        xhr.send();
-    }
-}
 
 
 makeHeroes();
