@@ -20,6 +20,7 @@
 
 body {
     font-family: Arial, Helvetica, sans-serif;
+    background-image: url('../images/universe.jpg');
   }
   
    
@@ -54,6 +55,22 @@ body {
       display: block;
   }
 
+  strong {
+    -webkit-text-stroke: 1px white;
+  }
+
+  img:hover {
+    cursor: pointer;
+  }
+
+  .superName {
+    font-family: 'Francois One', sans-serif;
+  }
+
+  .funFont {
+    font-family: 'Francois One', sans-serif;
+  }
+
   /* nav ul li ul li{ */
 
        /* width: 200px; */
@@ -82,8 +99,6 @@ body {
 
 
   .dropbtn {
-      
-      
       padding: 16px;
       font-size: 16px;
       border: none;
@@ -95,47 +110,46 @@ body {
   }
 
   .dropdown-content {
-    
+      background-color: #ddd;
       display: none;
       position: absolute;
-      
-      
-      
       z-index: 1;
   }
 
-  .dropdown-content a:hover {background-color: #ddd;}
+  .dropdown-content a:hover {
+    background-color: red;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    cursor: pointer;
+  }
 
   .dropdown:hover .dropdown-content {
-      
       display: flex;
+      flex-wrap: nowrap;
       flex-direction: column;
-      align-items: center;
       justify-content: center;
 }
-
-  
-
-  
 
   li a{
       text-decoration: none;
       color: black;
   }
 
-
-  
-
-  .dropdown:hover .dropdown-content {
+  /* .dropdown:hover .dropdown-content {
     display: block;
-  }
+  } */
 
   #heroes {
     width: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
   }
 
   #headshot {
     float: left;
+    margin-right: 10px;
   }
 
   #headshot::after {
@@ -153,12 +167,17 @@ body {
   }
 
   .hero {
-    width: 25%;
+    width: auto;
     height: auto;
     min-height: 100px;
     background-color: red;
     border: 1px solid black;
     margin: 10px;
+    transition: all .5s;
+  }
+
+  .hero:hover {
+    transform: scale(1.1);
   }
 
   .gifContainer {
@@ -166,10 +185,11 @@ body {
     flex-wrap: nowrap;;
     width: 100%;
     overflow: auto;
+    padding-top: 10px;
 }
 
   /* The Modal (background) */
-.modal {
+.mode {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
@@ -184,12 +204,13 @@ body {
 }
 
 /* Modal Content */
-.modal-content {
+.m-content {
   background-color: red;
   margin: auto;
   border: 1px solid #888;
-  width: 25%;
+  width: 50%;
   font-size: 30px;
+  line-height: 1.6;
 }
 
 /* The Close Button */
