@@ -1,9 +1,18 @@
+
 // placeholder for heroes associated with their ID as detailed in the api
 var heroes = {};
 var queryURLSuper = "https://akabab.github.io/superhero-api/api/all.json";
 var APIKey = "AlexMcRa-s-PRD-3ea920fd0-a7db069e";
 var hero;
 var product;
+
+var queryURLProduct;
+var Marvel = [];
+var DC = [];
+var darkHorse = [];
+var other = [];
+var data;
+
 var queryURLGif;
 // stores fetch results from Superhero API
 var superAPIResults;
@@ -35,6 +44,48 @@ var dataAttr;
 
 // Makes Universe buttons
 var makeUniverse = function (event) {
+        if (window.fetch) {
+            fetch(queryURLSuper, {
+                method: "GET"
+            })
+                .then(result => result.json())
+                .then(response => {
+                    for (let i of response) {
+                        if (i.biography.publisher === null) {continue;}
+                        if (universe.innerHTML.indexOf(i.biography.publisher) === -1) {
+                            var content = document.createElement("a");
+                            content.setAttribute("data-name", i.biography.publisher.toUpperCase());
+                            content.textContent = i.biography.publisher;
+                            dropContent.append(content);
+                        }
+                    }
+                    
+
+                })
+        } else {
+            let xhr = new XMLHttpRequest();
+            xhr.open("GET", queryURLSuper);
+            xhr.onload = (event) => {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        parsed = JSON.parse(xhr.responseText);
+                    }
+                } else {
+                    console.error(xhr.responseText);
+                }
+            }
+            xhr.onerror = (event) => {
+                console.error(xhr.responseText);
+            }
+            xhr.send();
+        }
+}
+
+// Pulls products from ebay based on the selected superhero/villain
+var getProducts = function (event) {
+    product = event.target.dataset.name.replace(" ", "+")
+    queryURLProduct = `http://open.api.ebay.com/shopping?callname=FindProducts&responseencoding=XML&appid=${APIKey}&siteid=0&QueryKeywords=${product}+superhero&version=1063`;
+
     if (window.fetch) {
         fetch(queryURLSuper, {
             method: "GET"
@@ -265,6 +316,10 @@ var makeHeroes = () => {
         })
             .then(result => result.json())
             .then(response => {
+                //console.log(response);
+                
+                data = response;
+                console.log(data);
                 console.log(response);
                 // stores fetch response in global variable for access in other functions
                 superAPIResults = response;
@@ -297,7 +352,6 @@ var makeHeroes = () => {
     }
 }
 
-
 makeHeroes();
 makeUniverse();
 contentHolder.addEventListener("click", getGIF);
@@ -305,9 +359,11 @@ contentHolder.addEventListener("click", getGIF);
 //     alert(event.target.tagName);
 // });
 
+
 // if you click outside of the modal, it will close
 window.onclick = function (event) {
     if (event.target == modal) {
         modal.style.display = "none";
     }
 }
+
