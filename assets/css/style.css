@@ -10,6 +10,8 @@
 .lead {
   font-family: 'Oswald', sans-serif;
   font-size: 30px;
+  color: black;
+  -webkit-text-stroke: 1px yellow;
   
 }
 
@@ -231,5 +233,7 @@ color: #000;
 text-decoration: none;
 cursor: pointer;
 }
+
+
 
 
