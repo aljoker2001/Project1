@@ -163,6 +163,8 @@ a:not([href]):not([tabindex]):focus, a:not([href]):not([tabindex]):hover {
 #canvas {
   display: flex;
   text-align: center;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .modalGif {

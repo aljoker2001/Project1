@@ -17,14 +17,20 @@ var dropDown = document.createElement("div");
 var dropBtn = document.createElement("button");
 var iThing = document.createElement("i");
 var dropContent = document.createElement("div");
-var display = document.querySelector("#display");
+// var display = document.querySelector("#display");
 var contentHolder = document.querySelector("#contentHolder");
 var bio;
 var close;
 var dataAttr;
 var currentHero;
+var circlex;
+var bio = document.createElement("div");
+bio.setAttribute("id", "modalBio");
+var textStats = document.createElement("div");
+bio.append(textStats);
 var canvas = document.createElement("div");
 canvas.setAttribute("id", "canvas");
+bio.append(canvas);
 // var circle1 = document.createElement("div");
 // var circle2 = document.createElement("div");
 // var circle3 = document.createElement("div");
@@ -142,15 +148,16 @@ var makeUniverse = function (event) {
 
 // pulls from super hero API to populate bio details in modal
 var createModalBio = (event) => {
-    modalContent.innerHTML = "";
+    textStats.innerHTML = "";
     modal.style.display = "block";
     var heroId = Object.keys(heroes).find(key => heroes[key] === event.target.dataset.name)
-    bio = document.createElement("div");
-    bio.setAttribute("id", "modalBio");
+    // bio = document.createElement("div");
+    // bio.setAttribute("id", "modalBio");
     var x = document.createElement("span");
     x.classList.add("close");
     x.textContent = "X";
     modalContent.append(x);
+    textStats.append(x);
     close = document.querySelector(".close");
     var headshot = document.createElement("img");
     headshot.setAttribute("id", "headshot");
@@ -164,6 +171,8 @@ var createModalBio = (event) => {
         for (key in superAPIResults[i]) {
             if (superAPIResults[i][key] == heroId) {
                 currentHero = superAPIResults[i];
+                console.log("Current Hero", currentHero);
+                console.log("current stat", currentHero.powerstats[0]);
                 headshot.setAttribute("src", superAPIResults[i].images.md);
                 name.innerHTML = `<strong>Name: </strong>${superAPIResults[i].name}`;
                 height.innerHTML = `<strong>Height: </strong>${superAPIResults[i].appearance.height[0]}`;
@@ -177,19 +186,20 @@ var createModalBio = (event) => {
                 race.classList.add("funFont");
                 pob.classList.add("funFont");
                 occupation.classList.add("funFont");
-                bio.append(headshot);
-                bio.append(name);
-                bio.append(height);
-                bio.append(weight);
-                bio.append(race);
-                bio.append(pob);
-                bio.append(occupation);
+                textStats.append(headshot);
+                textStats.append(name);
+                textStats.append(height);
+                textStats.append(weight);
+                textStats.append(race);
+                textStats.append(pob);
+                textStats.append(occupation);
                 getCircles(event);
-                modalContent.append(bio);
+                modalContent.prepend(bio);
                 return
             }
         }
     }
+
 }
 
 var getCircles = (event) => {
@@ -198,11 +208,12 @@ var getCircles = (event) => {
     ],
         circles = [];
     for (var i = 1; i <= 6; i++) {
-        var circlex = document.createElement("div");
-        circlex.classList.add("circle")
-        circlex.setAttribute("id", "circles-" + i);
+        circlex = document.querySelector("#circles-" + i);
+        // circlex.classList.add("circle")
+        // circlex.setAttribute("id", "circles-" + i);
+        // canvas.append(circlex);
         console.log(circlex);
-        var stat = currentHero.powerstats[0],
+        var stat = Object.values(currentHero.powerstats)[i-1],
             circle = Circles.create({
                 id: circlex.id,
                 value: stat,
@@ -210,10 +221,11 @@ var getCircles = (event) => {
                 width: 10,
                 colors: colors[i - 1]
             });
+            console.log(stat);
         circles.push(circle);
-        canvas.append(circle);
+        // canvas.append(circle);
     }
-    bio.append(canvas);
+    // bio.append(canvas);
     window.onresize = function (e) {
         for (var i = 0; i < circles.length; i++) {
             circles[i].updateRadius(getWidth());
@@ -256,7 +268,7 @@ var getGIF = function (event) {
                             image.classList.add("modalGif");
                             console.log(image);
                             gifContainer.append(image);
-                            bio.append(gifContainer);
+                            textStats.append(gifContainer);
                         }
                     })
             } else {
@@ -276,14 +288,14 @@ var getGIF = function (event) {
                 }
                 xhr.send();
             }
+            
         }
-        // Closes modal when clicking the "X"
-    }
 
-
-    close.onclick = function () {
-        modal.style.display = "none";
     }
+ // Closes modal when clicking the "X"
+ close.onclick = function () {
+    modal.style.display = "none";
+}
 }
 
 // pulls information and image for the heroes tied to that commic universe
@@ -363,3 +375,4 @@ window.onclick = function (event) {
         modal.style.display = "none";
     }
 }
+
