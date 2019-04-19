@@ -8,132 +8,288 @@ body,html{
 }
 
 .jumbotron {
-    background-image: url('../images/marvel_superheroes.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-color: black;
-    margin-bottom: 0;
+  background-image: url('../images/marvel_superheroes.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: black;
+  margin-bottom: 0;
+  text-align: center;
 }
 
 .lead {
-    font-family: 'Oswald', sans-serif;
-    font-size: 30px;
-    
+  font-family: 'Oswald', sans-serif;
+  font-size: 30px;
+  color: white;
+  -webkit-text-stroke: 1px black;
+  font-size: 40px;
+  
 }
 
 .display-4{
-    color: rgb(206, 146, 55);
-    font-family: 'Oswald', sans-serif;
-    -webkit-text-stroke: 1px white;
+  color: rgb(206, 146, 55);
+  font-family: 'Oswald', sans-serif;
+  -webkit-text-stroke: 1px white;
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
-  }
-  
-   
-   nav ul {
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: space-around;
-      
-  }
-
-   nav ul li {
-       
-      list-style: none;
-      position: relative;
-      margin: 1%;
-  }
-
-   nav ul li.sub-menu:before{
-       
-      content: '';
-      position: absolute;
-  }
-
-   nav ul li ul {
-      position: absolute;
-      left: 0;
-      
-  }
-
-  nav ul li:hover ul{
-      display: block;
-  }
-
-  /* nav ul li ul li{ */
-
-       /* width: 200px; */
-  /* } */
-   /* nav ul li ul a { */
-    /* color: white; */
-  /* } */
-  
-   /* nav ul li a { */
-      /* height: 50px; */
-      /* line-height: 50px; */
-      /* padding: 0 20 px; */
-      /* color: black; */
-      /* text-decoration: none; */
-      /* display: block; */
-  /* } */
-
-/* .sub-menu li{ */
-    /* display: none; */
-    
-/* } */
-  /* nav { */
-      /* display: block; */
-
-  /* } */
-
-
-  .dropbtn {
-      
-      
-      padding: 16px;
-      font-size: 16px;
-      border: none;
-  }
-
-  .dropdown {
-      position: relative;
-      
-  }
-
-  .dropdown-content {
-    
-      display: none;
-      position: absolute;
-      
-      
-      
-      z-index: 1;
-  }
-
-  .dropdown-content a:hover {background-color: #ddd;}
-
-  .dropdown:hover .dropdown-content {
-      
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+  font-family: Arial, Helvetica, sans-serif;
+  background-image: url('../images/universe.jpg');
 }
 
-  
+nav {
+  text-align: center;
+}
 
-  
+ 
+ nav ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+    
+}
 
-  li a{
-      text-decoration: none;
-      color: black;
+ nav ul li {
+     
+    list-style: none;
+    position: relative;
+    margin: 1%;
+}
+
+ nav ul li.sub-menu:before{
+     
+    content: '';
+    position: absolute;
+}
+
+ nav ul li ul {
+    position: absolute;
+    left: 0;
+    
+}
+
+nav ul li:hover ul{
+    display: block;
+}
+
+strong {
+  -webkit-text-stroke: 1px white;
+}
+
+.hero:hover {
+  cursor: pointer;
+}
+
+.superName {
+  font-family: 'Francois One', sans-serif;
+}
+
+.funFont {
+  font-family: 'Francois One', sans-serif;
+}
+
+.dropbtn {
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+}
+
+.dropdown {
+    position: relative;
+    
+}
+
+.dropdown-content {
+    background-color: #ddd;
+    display: none;
+    position: absolute;
+    z-index: 1;
+}
+
+.dropdown-content a:hover {
+  background-color: red;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.dropdown:hover .dropdown-content {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: center;
+}
+
+li a{
+    text-decoration: none;
+    color: black;
+}
+
+h5 {
+  font-size: 30px;
+}
+
+/* .dropdown:hover .dropdown-content {
+  display: block;
+} */
+
+a:not([href]):not([tabindex]):focus, a:not([href]):not([tabindex]):hover {
+  color: white;
+  text-decoration: none;
+  background-color: red;
+}
+
+#dropdownMenuButton {
+  background-color: red;
+  margin: 20px;
+}
+
+#heroes {
+  width: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#headshot {
+  float: left;
+  margin-right: 10px;
+}
+
+#headshot::after {
+  content: "";
+  clear: both;
+  display: block;
+}
+
+#modalBio {
+  padding: 15px;
+}
+
+#canvas .circle {
+  display: inline-block;
+  margin: 1em;
+}
+
+#canvas {
+  display: flex;
+  text-align: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+#submit {
+  background-color: red;
+  height: max-content;
+  margin-left: 10px;
+}
+
+#findHeroes {
+  display: inline-block;
+}
+
+#or {
+  color: white;
+}
+
+.modalGif {
+  margin: 5px;
+}
+
+.hero {
+  width: auto;
+  height: max-content;
+  min-height: 100px;
+  background-color: red;
+  border: 1px solid black;
+  margin: 10px;
+  transition: all .5s;
+}
+
+.hero:hover {
+  transform: scale(1.1);
+}
+
+.gifContainer {
+  display: flex;
+  flex-wrap: nowrap;;
+  width: 100%;
+  overflow: auto;
+  padding-top: 10px;
+}
+
+/* The Modal (background) */
+.mode {
+display: none; /* Hidden by default */
+position: fixed; /* Stay in place */
+z-index: 1; /* Sit on top */
+padding-top: 100px; /* Location of the box */
+left: 0;
+top: 0;
+width: 100%; /* Full width */
+height: 100%; /* Full height */
+overflow: auto; /* Enable scroll if needed */
+background-color: rgb(0,0,0); /* Fallback color */
+background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+#m-content {
+background-color: red;
+margin: auto;
+border: 1px solid #888;
+width: 50%;
+font-size: 30px;
+line-height: 1.6;
+}
+
+.mode2 {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  border-radius: 25px;
+  }
+  
+  /* Modal Content */
+  #m-content2 {
+  background-color: red;
+  margin: auto;
+  border: 1px solid #888;
+  width: 50%;
+  font-size: 30px;
+  line-height: 1.6;
   }
 
+/* The Close Button */
+.close {
+color: #aaaaaa;
+float: right;
+font-size: 28px;
+font-weight: bold;
+padding: 10px;
+}
 
-  
+.close:hover,
+.close:focus {
+color: #000;
+text-decoration: none;
+cursor: pointer;
+}
+
+.form-group {
+  display: flex;
+}
+
 
 
 

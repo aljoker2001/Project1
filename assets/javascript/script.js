@@ -13,17 +13,30 @@ var superImage = document.querySelector("#heroes");
 var universe = document.querySelector(".dropdown-menu");
 var modalContent = document.querySelector("#m-content");
 var modal = document.querySelector(".mode");
+<<<<<<< HEAD
+=======
+var inputModal = document.querySelector(".mode2");
+var inputClose = document.querySelector("#inputClose");
+>>>>>>> adc9675f625532d7b1f65760e351a43c3068588d
 var dropDown = document.createElement("div");
 var dropBtn = document.createElement("button");
 var iThing = document.createElement("i");
 var dropContent = document.createElement("div");
 // var display = document.querySelector("#display");
 var contentHolder = document.querySelector("#contentHolder");
+<<<<<<< HEAD
+=======
+var heroSearch = document.querySelector("#heroSearch");
+>>>>>>> adc9675f625532d7b1f65760e351a43c3068588d
 var bio;
 var close;
 var dataAttr;
 var currentHero;
 var circlex;
+<<<<<<< HEAD
+=======
+var submit = document.querySelector("#submit");
+>>>>>>> adc9675f625532d7b1f65760e351a43c3068588d
 var bio = document.createElement("div");
 bio.setAttribute("id", "modalBio");
 var textStats = document.createElement("div");
@@ -31,6 +44,7 @@ bio.append(textStats);
 var canvas = document.createElement("div");
 canvas.setAttribute("id", "canvas");
 bio.append(canvas);
+<<<<<<< HEAD
 // var circle1 = document.createElement("div");
 // var circle2 = document.createElement("div");
 // var circle3 = document.createElement("div");
@@ -59,6 +73,9 @@ bio.append(canvas);
 // dropDown.append(dropContent);
 // universe.append(dropDown);
 
+=======
+
+>>>>>>> adc9675f625532d7b1f65760e351a43c3068588d
 // creates an object of all heroes with a key of their ID and a value of their name
 var makeHeroes = () => {
     if (window.fetch) {
@@ -114,6 +131,10 @@ var makeUniverse = function (event) {
                     if (i.biography.publisher === null) { continue; }
                     // if the current publisher has not yet been added to the dropdown, then the function continues and adds it to the dropdown
                     if (universe.innerHTML.indexOf(i.biography.publisher) === -1) {
+<<<<<<< HEAD
+=======
+                        // the below code creates an "a" tag, sets the "data-name" attribute to the publisher, adds two classes, and fills the content with the publisher name
+>>>>>>> adc9675f625532d7b1f65760e351a43c3068588d
                         var content = document.createElement("a");
                         content.setAttribute("data-name", i.biography.publisher.toUpperCase());
                         content.classList.add("publisher", "dropdown-item");
@@ -148,6 +169,7 @@ var makeUniverse = function (event) {
 
 // pulls from super hero API to populate bio details in modal
 var createModalBio = (event) => {
+<<<<<<< HEAD
     textStats.innerHTML = "";
     modal.style.display = "block";
     var heroId = Object.keys(heroes).find(key => heroes[key] === event.target.dataset.name)
@@ -161,19 +183,39 @@ var createModalBio = (event) => {
     close = document.querySelector(".close");
     var headshot = document.createElement("img");
     headshot.setAttribute("id", "headshot");
+=======
+    modal.style.display = "block";
+    var heroId = Object.keys(heroes).find(key => heroes[key] === event.target.dataset.name)
+    // creates the close button
+    close = document.querySelector(".close");
+    // creates image in the modal
+    var headshot = document.createElement("img");
+    headshot.setAttribute("id", "headshot");
+    // The below creates the elements that hold details on the stats for the hero/villain selected
+>>>>>>> adc9675f625532d7b1f65760e351a43c3068588d
     var name = document.createElement("h2");
     var height = document.createElement("h5");
     var weight = document.createElement("h5");
     var race = document.createElement("h5");
     var pob = document.createElement("h5");
     var occupation = document.createElement("h5");
+<<<<<<< HEAD
     for (i = 0; superAPIResults.length; i++) {
+=======
+    // This loop populates the above elements with the details from the API and appends them to the modal containers
+    for (i = 0; superAPIResults.length; i++) {
+        // Had to go one level deeper to get to the information we needed
+>>>>>>> adc9675f625532d7b1f65760e351a43c3068588d
         for (key in superAPIResults[i]) {
             if (superAPIResults[i][key] == heroId) {
                 currentHero = superAPIResults[i];
                 console.log("Current Hero", currentHero);
                 console.log("current stat", currentHero.powerstats[0]);
                 headshot.setAttribute("src", superAPIResults[i].images.md);
+<<<<<<< HEAD
+=======
+                headshot.setAttribute("alt", superAPIResults[i].name);
+>>>>>>> adc9675f625532d7b1f65760e351a43c3068588d
                 name.innerHTML = `<strong>Name: </strong>${superAPIResults[i].name}`;
                 height.innerHTML = `<strong>Height: </strong>${superAPIResults[i].appearance.height[0]}`;
                 weight.innerHTML = `<strong>Weight: </strong>${superAPIResults[i].appearance.weight[0]}`;
@@ -194,7 +236,11 @@ var createModalBio = (event) => {
                 textStats.append(pob);
                 textStats.append(occupation);
                 getCircles(event);
+<<<<<<< HEAD
                 modalContent.prepend(bio);
+=======
+                modalContent.insertBefore(bio, modalContent.lastElementChild);
+>>>>>>> adc9675f625532d7b1f65760e351a43c3068588d
                 return
             }
         }
@@ -202,18 +248,30 @@ var createModalBio = (event) => {
 
 }
 
+<<<<<<< HEAD
 var getCircles = (event) => {
+=======
+// This function populates the circles in the modal that displays the combat statistics of each hero
+var getCircles = (event) => {
+    // Sets the colors for the various stat circles
+>>>>>>> adc9675f625532d7b1f65760e351a43c3068588d
     var colors = [
         ['#D3B6C6', '#4B253A'], ['#FCE6A4', '#EFB917'], ['#BEE3F7', '#45AEEA'], ['#F8F9B6', '#D2D558'], ['#F4BCBF', '#D43A43'], ['#8cbb9a', '#19913d']
     ],
         circles = [];
     for (var i = 1; i <= 6; i++) {
         circlex = document.querySelector("#circles-" + i);
+<<<<<<< HEAD
         // circlex.classList.add("circle")
         // circlex.setAttribute("id", "circles-" + i);
         // canvas.append(circlex);
         console.log(circlex);
         var stat = Object.values(currentHero.powerstats)[i-1],
+=======
+        console.log(circlex);
+      // Assigns the values from the API into their respective stat
+        var stat = Object.values(currentHero.powerstats)[i - 1],
+>>>>>>> adc9675f625532d7b1f65760e351a43c3068588d
             circle = Circles.create({
                 id: circlex.id,
                 value: stat,
@@ -221,7 +279,11 @@ var getCircles = (event) => {
                 width: 10,
                 colors: colors[i - 1]
             });
+<<<<<<< HEAD
             console.log(stat);
+=======
+        console.log(stat);
+>>>>>>> adc9675f625532d7b1f65760e351a43c3068588d
         circles.push(circle);
         // canvas.append(circle);
     }
@@ -288,6 +350,7 @@ var getGIF = function (event) {
                 }
                 xhr.send();
             }
+<<<<<<< HEAD
             
         }
 
@@ -299,6 +362,56 @@ var getGIF = function (event) {
 }
 
 // pulls information and image for the heroes tied to that commic universe
+=======
+
+        }
+
+    }
+
+ // Closes modal when clicking the "X"
+ close.onclick = function () {
+    modal.style.display = "none";
+    // Clears out previous modal
+    textStats.innerHTML = "";
+
+}
+
+var searchResult = function (event) {
+    event.preventDefault()
+    superImage.innerHTML = "";
+    var heroName = heroSearch.value.trim();
+    heroSearch.style.backgroundColor = "white";
+    if (heroName === "") {
+        inputModal.style.display = "block";
+    }
+    for (i = 0; i < superAPIResults.length; i++) {
+        // iterates through various keys of each super hero
+        for (j in superAPIResults[i]) {
+            var category = Object.keys(superAPIResults[i]).find(key => superAPIResults[i][key] === heroName);
+            if (category !== "name") { continue; }
+            var thumbnail = document.createElement("div");
+            thumbnail.classList.add("hero");
+            thumbnail.setAttribute("data-name", heroName.toUpperCase());
+            var image = document.createElement("img");
+            var name = document.createElement("h4");
+            image.setAttribute("src", superAPIResults[i].images.sm);
+            image.setAttribute("data-name", heroName.toUpperCase());
+            image.classList.add("hero");
+            name.classList.add("superName");
+            name.textContent = heroName;
+            thumbnail.append(image);
+            thumbnail.append(name);
+            superImage.append(thumbnail);
+            document.querySelector("form").reset();
+            return;
+        }
+    }
+}
+
+
+// pulls information and image for the heroes tied to that comic universe and appends them to the home page
+
+>>>>>>> adc9675f625532d7b1f65760e351a43c3068588d
 var getSuperData = function (event) {
     // clears content of superhero field if there is anything in there
     superImage.innerHTML = "";
@@ -316,6 +429,7 @@ var getSuperData = function (event) {
                 // console.log(category);
                 continue;
             } else {
+<<<<<<< HEAD
                 // console.log("value", superAPIResults[i][j]);
                 // console.log(typeof value);
                 // console.log(value);
@@ -331,6 +445,13 @@ var getSuperData = function (event) {
                     if (superAPIResults[i][j][keys] === null) { continue; }
                     if (category === "publisher") {
                         console.log(superAPIResults[i][j][keys]);
+=======
+                for (keys in superAPIResults[i][j]) {
+                    value = superAPIResults[i][j][keys]
+                    category = Object.keys(superAPIResults[i][j]).find(key => superAPIResults[i][j][key] === value);
+                    if (superAPIResults[i][j][keys] === null) { continue; }
+                    if (category === "publisher") {
+>>>>>>> adc9675f625532d7b1f65760e351a43c3068588d
                         if (superAPIResults[i][j][keys].toUpperCase() == event.target.dataset.name.toUpperCase()) {
                             console.log("we made it!")
                             var thumbnail = document.createElement("div");
@@ -340,6 +461,10 @@ var getSuperData = function (event) {
                             var name = document.createElement("h4");
                             image.setAttribute("src", superAPIResults[i].images.sm);
                             image.setAttribute("data-name", superAPIResults[i].name.toUpperCase());
+<<<<<<< HEAD
+=======
+                            image.setAttribute("alt", superAPIResults[i].name);
+>>>>>>> adc9675f625532d7b1f65760e351a43c3068588d
                             image.classList.add("hero");
                             name.classList.add("superName");
                             name.textContent = superAPIResults[i].name;
@@ -354,7 +479,10 @@ var getSuperData = function (event) {
             }
         }
     }
+<<<<<<< HEAD
     // var heroId = Object.keys(heroes).find(key => heroes[key] === event.target.dataset.name);
+=======
+>>>>>>> adc9675f625532d7b1f65760e351a43c3068588d
 
 
 
@@ -365,14 +493,26 @@ var getSuperData = function (event) {
 makeHeroes();
 makeUniverse();
 contentHolder.addEventListener("click", getGIF);
+<<<<<<< HEAD
+=======
+submit.addEventListener("click", searchResult);
+inputClose.addEventListener("click", function (event) {
+    inputModal.style.display = "none";
+})
+>>>>>>> adc9675f625532d7b1f65760e351a43c3068588d
 // contentHolder.addEventListener("click", function(event) {
 //     alert(event.target.tagName);
 // });
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> adc9675f625532d7b1f65760e351a43c3068588d
 // if you click outside of the modal, it will close
 window.onclick = function (event) {
     if (event.target == modal) {
         modal.style.display = "none";
+<<<<<<< HEAD
     }
 }
 
@@ -396,3 +536,28 @@ window.onclick = function (event) {
 
 // Extra large devices (large desktops, 1200px and up)
 // @media (min-width: 1200px) { ... }
+=======
+        // Clears out previous modal
+        textStats.innerHTML = "";
+    }
+}
+
+document.querySelector("#heroSearch").addEventListener("submit", function () {
+    var searchBar = document.querySelector("#heroSearch");
+    //this is the whole hero data right?
+    var searched = superAPIResults[i][j][keys];
+
+    if (searchBar === "") {
+        return ("You have not picked anybody!")
+
+    }
+    else (searchBar.toUpperCase())
+    console.log(searchBar);
+
+
+
+
+
+});
+
+>>>>>>> adc9675f625532d7b1f65760e351a43c3068588d
