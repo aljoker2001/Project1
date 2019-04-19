@@ -2,64 +2,103 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  
   <title>JavaScript Content!</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css?family=Francois+One" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="assets/css/style.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
 </head>
 <body>
-  <header>
+<div class="container">
+  <header id="header"></header>
+<div class="box1">
     <div class="jumbotron">
-        <h1 class="display-4">Super Heroes</h1>
-        <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-        <hr class="my-4">
-        <p class="lead">It uses utility classes for typography and spacing to space content out within the larger container.</p>
-        <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+      <h1 class="display-4">Super Heroes</h1>
+      <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to
+        featured content or information.</p>
+      <hr class="my-4">
+      <p class="lead">It uses utility classes for typography and spacing to space content out within the larger
+        container.</p>
+    </div>
+    </div>
+ </div>
+  </header>
+<div class="box2">
+  <nav>
+
+      <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Choose your Universe
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          </div>
+        </div>
+
+  
+  </nav>
+</div>
+<div class="box3">
+  <div id="contentHolder">
+    <div id="heroes" class="row">
+      <!-- <div class="hero" data-name="THOR" id="display"></div>
+    <div class="hero" data-name="A-BOMB"></div>
+    <div class="hero" data-name="THANOS"></div>
+    <div class="hero" data-name="GAMORA"></div>
+    <div class="hero" data-name="MOON KNIGHT"></div>
+    <div class="hero" data-name="JOKER"></div>
+    <div class="hero" data-name="NIGHTWING"></div>
+    <div class="hero" data-name="NICK FURY"></div> -->
+    </div>
+  </div>
+</div>
+<div class="box4">
+  <div id="mModal" class="mode">
+    <div id="m-content">
+      <!-- <span class="close">&times;</span> -->
+      <div id="canvas">
+          <div>
+              <div class="circle" id="circles-1"></div>
+              <p>Intelligence</p>
+            </div>
+            <div>
+              <div class="circle" id="circles-2"></div>
+              <p>Strength</p>
+            </div>
+            <div>
+              <div class="circle" id="circles-3"></div>
+              <p>Speed</p>
+            </div>
+            <div>
+              <div class="circle" id="circles-4"></div>
+              <p>Durability</p>
+            </div>
+            <div>
+              <div class="circle" id="circles-5"></div>
+              <p>Power</p>
+            </div>
+            <div=>
+              <div class="circle" id="circles-6"></div>
+              <p>Combat</p>
+            </div>
       </div>
-    </header>
-      <nav>
-        <ul>
-               <li><a href="#" class="active">Home</a></li>
-               <div class="dropdown">
-                  <button class="dropbtn">About</button>
-                  <div class="dropdown-content">
-                   <a href="#">Hero 1</a>
-                   <a href="#">Hero 2</a>
-                   <a href="#">Hero 3</a>
-                   <a href="#">Hero 4</a>
-                   <a href="#">Hero 5</a>
-                   <a href="#">Hero 6</a>
-                   <a href="#">Hero 7</a>
-                   <a href="#">Hero 8</a>
-                   <a href="#">Hero 9</a>
-                   <a href="#">Hero 10</a>
-                   <a href="#">Hero 11</a>
-                </div>
-               </div>
-               <div class="dropdown">
-                 <button class="dropbtn">Dropdown</button>
-                 <div class="dropdown-content">
-                   <a href="#">Hero 1</a>
-                   <a href="#">Hero 2</a>
-                   <a href="#">Hero 3</a>
-                   <a href="#">Hero 4</a>
-                   <a href="#">Hero 5</a>
-                   <a href="#">Hero 6</a>
-                   <a href="#">Hero 7</a>
-                   <a href="#">Hero 8</a>
-                   <a href="#">Hero 9</a>
-                   <a href="#">Hero 10</a>
-                   <a href="#">Hero 11</a>
-                 </div>
-                </div>
+    </div>
 
-           
-
-        
-        </ul>
-      </nav>
-     
-       
-       
+  </div>
+</div>
+  <div class="clearfix"></div>
+<div class="box5">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="assets/javascript/script.js"></script>
+  <script src="assets/javascript/circles.js"></script>
+</div>
 </body>
 </html>
