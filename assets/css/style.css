@@ -138,6 +138,7 @@ a:not([href]):not([tabindex]):focus, a:not([href]):not([tabindex]):hover {
   text-align: center;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 #headshot {
@@ -173,7 +174,7 @@ a:not([href]):not([tabindex]):focus, a:not([href]):not([tabindex]):hover {
 
 .hero {
   width: auto;
-  height: auto;
+  height: max-content;
   min-height: 100px;
   background-color: red;
   border: 1px solid black;
