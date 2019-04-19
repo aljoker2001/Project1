@@ -13,17 +13,21 @@ var superImage = document.querySelector("#heroes");
 var universe = document.querySelector(".dropdown-menu");
 var modalContent = document.querySelector("#m-content");
 var modal = document.querySelector(".mode");
+var inputModal = document.querySelector(".mode2");
+var inputClose = document.querySelector("#inputClose");
 var dropDown = document.createElement("div");
 var dropBtn = document.createElement("button");
 var iThing = document.createElement("i");
 var dropContent = document.createElement("div");
 // var display = document.querySelector("#display");
 var contentHolder = document.querySelector("#contentHolder");
+var heroSearch = document.querySelector("#heroSearch");
 var bio;
 var close;
 var dataAttr;
 var currentHero;
 var circlex;
+var submit = document.querySelector("#submit");
 var bio = document.createElement("div");
 bio.setAttribute("id", "modalBio");
 var textStats = document.createElement("div");
@@ -213,7 +217,7 @@ var getCircles = (event) => {
         // circlex.setAttribute("id", "circles-" + i);
         // canvas.append(circlex);
         console.log(circlex);
-        var stat = Object.values(currentHero.powerstats)[i-1],
+        var stat = Object.values(currentHero.powerstats)[i - 1],
             circle = Circles.create({
                 id: circlex.id,
                 value: stat,
@@ -221,7 +225,7 @@ var getCircles = (event) => {
                 width: 10,
                 colors: colors[i - 1]
             });
-            console.log(stat);
+        console.log(stat);
         circles.push(circle);
         // canvas.append(circle);
     }
@@ -288,15 +292,48 @@ var getGIF = function (event) {
                 }
                 xhr.send();
             }
-            
+
         }
 
     }
- // Closes modal when clicking the "X"
- close.onclick = function () {
-    modal.style.display = "none";
+    // Closes modal when clicking the "X"
+    close.onclick = function () {
+        modal.style.display = "none";
+    }
 }
+
+var searchResult = function (event) {
+    event.preventDefault()
+    superImage.innerHTML = "";
+    var heroName = heroSearch.value.trim();
+    heroSearch.style.backgroundColor = "white";
+    if (heroName === "") {
+        inputModal.style.display = "block";
+    }
+    for (i = 0; i < superAPIResults.length; i++) {
+        // iterates through various keys of each super hero
+        for (j in superAPIResults[i]) {
+            var category = Object.keys(superAPIResults[i]).find(key => superAPIResults[i][key] === heroName);
+            if (category !== "name") { continue; }
+            var thumbnail = document.createElement("div");
+            thumbnail.classList.add("hero");
+            thumbnail.setAttribute("data-name", heroName.toUpperCase());
+            var image = document.createElement("img");
+            var name = document.createElement("h4");
+            image.setAttribute("src", superAPIResults[i].images.sm);
+            image.setAttribute("data-name", heroName.toUpperCase());
+            image.classList.add("hero");
+            name.classList.add("superName");
+            name.textContent = heroName;
+            thumbnail.append(image);
+            thumbnail.append(name);
+            superImage.append(thumbnail);
+            document.querySelector("form").reset();
+            return;
+        }
+    }
 }
+
 
 // pulls information and image for the heroes tied to that commic universe
 var getSuperData = function (event) {
@@ -365,6 +402,10 @@ var getSuperData = function (event) {
 makeHeroes();
 makeUniverse();
 contentHolder.addEventListener("click", getGIF);
+submit.addEventListener("click", searchResult);
+inputClose.addEventListener("click", function (event) {
+    inputModal.style.display = "none";
+})
 // contentHolder.addEventListener("click", function(event) {
 //     alert(event.target.tagName);
 // });
@@ -376,17 +417,17 @@ window.onclick = function (event) {
     }
 }
 
-document.querySelector("#heroSearch").addEventListener("submit" , function() {
-var searchBar = document.querySelector("#heroSearch");
-//this is the whole hero data right?
-var searched = superAPIResults[i][j][keys];
+document.querySelector("#heroSearch").addEventListener("submit", function () {
+    var searchBar = document.querySelector("#heroSearch");
+    //this is the whole hero data right?
+    var searched = superAPIResults[i][j][keys];
 
-    if(searchBar === "") {
-     return ("You have not picked anybody!")
-     
+    if (searchBar === "") {
+        return ("You have not picked anybody!")
+
     }
-    else(searchBar.toUpperCase())
-console.log(searchBar);
+    else (searchBar.toUpperCase())
+    console.log(searchBar);
 
 
 
