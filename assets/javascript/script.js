@@ -35,33 +35,6 @@ bio.append(textStats);
 var canvas = document.createElement("div");
 canvas.setAttribute("id", "canvas");
 bio.append(canvas);
-// var circle1 = document.createElement("div");
-// var circle2 = document.createElement("div");
-// var circle3 = document.createElement("div");
-// var circle4 = document.createElement("div");
-// var circle5 = document.createElement("div");
-// var circle6 = document.createElement("div");
-// circle1.classList.add("circle");
-// circle2.classList.add("circle");
-// circle3.classList.add("circle");
-// circle4.classList.add("circle");
-// circle5.classList.add("circle");
-// circle6.classList.add("circle");
-// circle1.setAttribute("id", "circles-1");
-// circle2.setAttribute("id", "circles-2");
-// circle3.setAttribute("id", "circles-3");
-// circle4.setAttribute("id", "circles-4");
-// circle5.setAttribute("id", "circles-5");
-// circle6.setAttribute("id", "circles-6");
-
-// dropDown.classList.add("dropdown");
-// dropBtn.classList.add("dropbtn");
-// iThing.classList.add("fa", "fa-caret-down");
-// dropContent.classList.add("dropdown-content");
-// dropBtn.append(iThing);
-// dropDown.append(dropBtn);
-// dropDown.append(dropContent);
-// universe.append(dropDown);
 
 // creates an object of all heroes with a key of their ID and a value of their name
 var makeHeroes = () => {
@@ -118,6 +91,7 @@ var makeUniverse = function (event) {
                     if (i.biography.publisher === null) { continue; }
                     // if the current publisher has not yet been added to the dropdown, then the function continues and adds it to the dropdown
                     if (universe.innerHTML.indexOf(i.biography.publisher) === -1) {
+                        // the below code creates an "a" tag, sets the "data-name" attribute to the publisher, adds two classes, and fills the content with the publisher name
                         var content = document.createElement("a");
                         content.setAttribute("data-name", i.biography.publisher.toUpperCase());
                         content.classList.add("publisher", "dropdown-item");
@@ -152,32 +126,30 @@ var makeUniverse = function (event) {
 
 // pulls from super hero API to populate bio details in modal
 var createModalBio = (event) => {
-    textStats.innerHTML = "";
     modal.style.display = "block";
     var heroId = Object.keys(heroes).find(key => heroes[key] === event.target.dataset.name)
-    // bio = document.createElement("div");
-    // bio.setAttribute("id", "modalBio");
-    var x = document.createElement("span");
-    x.classList.add("close");
-    x.textContent = "X";
-    modalContent.append(x);
-    textStats.append(x);
+    // creates the close button
     close = document.querySelector(".close");
+    // creates image in the modal
     var headshot = document.createElement("img");
     headshot.setAttribute("id", "headshot");
+    // The below creates the elements that hold details on the stats for the hero/villain selected
     var name = document.createElement("h2");
     var height = document.createElement("h5");
     var weight = document.createElement("h5");
     var race = document.createElement("h5");
     var pob = document.createElement("h5");
     var occupation = document.createElement("h5");
+    // This loop populates the above elements with the details from the API and appends them to the modal containers
     for (i = 0; superAPIResults.length; i++) {
+        // Had to go one level deeper to get to the information we needed
         for (key in superAPIResults[i]) {
             if (superAPIResults[i][key] == heroId) {
                 currentHero = superAPIResults[i];
                 console.log("Current Hero", currentHero);
                 console.log("current stat", currentHero.powerstats[0]);
                 headshot.setAttribute("src", superAPIResults[i].images.md);
+                headshot.setAttribute("alt", superAPIResults[i].name);
                 name.innerHTML = `<strong>Name: </strong>${superAPIResults[i].name}`;
                 height.innerHTML = `<strong>Height: </strong>${superAPIResults[i].appearance.height[0]}`;
                 weight.innerHTML = `<strong>Weight: </strong>${superAPIResults[i].appearance.weight[0]}`;
@@ -198,7 +170,7 @@ var createModalBio = (event) => {
                 textStats.append(pob);
                 textStats.append(occupation);
                 getCircles(event);
-                modalContent.prepend(bio);
+                modalContent.insertBefore(bio, modalContent.lastElementChild);
                 return
             }
         }
@@ -206,17 +178,17 @@ var createModalBio = (event) => {
 
 }
 
+// This function populates the circles in the modal that displays the combat statistics of each hero
 var getCircles = (event) => {
+    // Sets the colors for the various stat circles
     var colors = [
         ['#D3B6C6', '#4B253A'], ['#FCE6A4', '#EFB917'], ['#BEE3F7', '#45AEEA'], ['#F8F9B6', '#D2D558'], ['#F4BCBF', '#D43A43'], ['#8cbb9a', '#19913d']
     ],
         circles = [];
     for (var i = 1; i <= 6; i++) {
         circlex = document.querySelector("#circles-" + i);
-        // circlex.classList.add("circle")
-        // circlex.setAttribute("id", "circles-" + i);
-        // canvas.append(circlex);
         console.log(circlex);
+      // Assigns the values from the API into their respective stat
         var stat = Object.values(currentHero.powerstats)[i - 1],
             circle = Circles.create({
                 id: circlex.id,
@@ -296,10 +268,13 @@ var getGIF = function (event) {
         }
 
     }
-    // Closes modal when clicking the "X"
-    close.onclick = function () {
-        modal.style.display = "none";
-    }
+
+ // Closes modal when clicking the "X"
+ close.onclick = function () {
+    modal.style.display = "none";
+    // Clears out previous modal
+    textStats.innerHTML = "";
+
 }
 
 var searchResult = function (event) {
@@ -335,7 +310,8 @@ var searchResult = function (event) {
 }
 
 
-// pulls information and image for the heroes tied to that commic universe
+// pulls information and image for the heroes tied to that comic universe and appends them to the home page
+
 var getSuperData = function (event) {
     // clears content of superhero field if there is anything in there
     superImage.innerHTML = "";
@@ -353,21 +329,11 @@ var getSuperData = function (event) {
                 // console.log(category);
                 continue;
             } else {
-                // console.log("value", superAPIResults[i][j]);
-                // console.log(typeof value);
-                // console.log(value);
-                // console.log("key", Object.keys(superAPIResults[i]).find(key => superAPIResults[i][key] === value));
-                // console.log("next value", superAPIResults[i + 1][j]);
                 for (keys in superAPIResults[i][j]) {
                     value = superAPIResults[i][j][keys]
                     category = Object.keys(superAPIResults[i][j]).find(key => superAPIResults[i][j][key] === value);
-                    console.log("Biography level keys: ", category);
-                    console.log(typeof category);
-                    // console.log("zero-ith index of value", superAPIResults[i][j][key]);
-                    // return;
                     if (superAPIResults[i][j][keys] === null) { continue; }
                     if (category === "publisher") {
-                        console.log(superAPIResults[i][j][keys]);
                         if (superAPIResults[i][j][keys].toUpperCase() == event.target.dataset.name.toUpperCase()) {
                             console.log("we made it!")
                             var thumbnail = document.createElement("div");
@@ -377,6 +343,7 @@ var getSuperData = function (event) {
                             var name = document.createElement("h4");
                             image.setAttribute("src", superAPIResults[i].images.sm);
                             image.setAttribute("data-name", superAPIResults[i].name.toUpperCase());
+                            image.setAttribute("alt", superAPIResults[i].name);
                             image.classList.add("hero");
                             name.classList.add("superName");
                             name.textContent = superAPIResults[i].name;
@@ -391,7 +358,6 @@ var getSuperData = function (event) {
             }
         }
     }
-    // var heroId = Object.keys(heroes).find(key => heroes[key] === event.target.dataset.name);
 
 
 
@@ -410,10 +376,13 @@ inputClose.addEventListener("click", function (event) {
 //     alert(event.target.tagName);
 // });
 
+
 // if you click outside of the modal, it will close
 window.onclick = function (event) {
     if (event.target == modal) {
         modal.style.display = "none";
+        // Clears out previous modal
+        textStats.innerHTML = "";
     }
 }
 
