@@ -339,3 +339,21 @@ window.onclick = function (event) {
     }
 }
 
+document.querySelector("#heroSearch").addEventListener("submit" , function() {
+var searchBar = document.querySelector("#heroSearch");
+//this is the whole hero data right?
+var searched = superAPIResults[i][j][keys];
+
+    if(searchBar === "") {
+     return ("You have not picked anybody!")
+     
+    }
+    else(searchBar.toUpperCase())
+console.log(searchBar);
+
+
+
+
+
+});
+
