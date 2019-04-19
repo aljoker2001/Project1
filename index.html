@@ -18,24 +18,34 @@
 
   <header>
     <div class="jumbotron">
-      <h1 class="display-4">Super Heroes</h1>
-      <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to
-        featured content or information.</p>
+      <h1 class="display-4">Ultimate Character Database</h1>
+      <p class="lead">This is a database for all characters in the superhero universe, whether they work for good or evil.</p>
       <hr class="my-4">
-      <p class="lead">It uses utility classes for typography and spacing to space content out within the larger
-        container.</p>
+      <p class="lead">Click on our universe button or look for someone specific in our search bar!</p>
     </div>
   </header>
   <nav>
-
-      <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Choose your Universe
-          </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          </div>
+    <div class= "row">
+        <div class="col-md-10">
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Choose your Universe
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                </div>
+            </div>
         </div>
-
+        <div class="col">
+            <form id="searchHero">
+                <div class="form-group">
+                <label for="heroSearch">Find a Hero or Villain</label>
+                <input type="character" class="form-control" id="heroSearch" placeholder="Search for a Hero or Villain">
+                <small id="characterHelp" class="form-text text-light">Try searching for Thor or Slade</small>
+                </div>
+                <button type="submit" class="btn btn-info">Find your Character!</button>
+            </form>
+        </div>
+    </div>
   
   </nav>
 
