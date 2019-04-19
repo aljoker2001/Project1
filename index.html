@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>JavaScript Content!</title>
+  <title>Superhero Database</title>
 
   <link href="https://fonts.googleapis.com/css?family=Francois+One" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
@@ -26,7 +26,7 @@
   </header>
   <nav>
 
-    <div class= "row">
+    <div class= "row" id="findHeroes">
         <div class="col-md-10">
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -38,12 +38,14 @@
         </div>
         <div class="col">
             <form id="searchHero">
+              <label for="heroSearch" id="or">OR</label>
                 <div class="form-group">
-                <label for="heroSearch">Find a Hero or Villain</label>
-                <input type="character" class="form-control" id="heroSearch" placeholder="Search for a Hero or Villain">
-                <small id="characterHelp" class="form-text text-light">Try searching for Thor or Slade</small>
-                </div>
-                <button type="submit" class="btn btn-info">Find your Character!</button>
+                  <div class="inputField">
+                    <input type="character" class="form-control" id="heroSearch" placeholder="Enter Hero or Villain">
+                    <small id="characterHelp" class="form-text text-light">Try searching for Thor or Slade</small>
+                  </div>
+                <button type="submit" class="btn btn-info" id="submit">Find your Character!</button>
+              </div>
             </form>
         </div>
     </div>
@@ -98,15 +100,19 @@
 
   </div>
 
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-    crossorigin="anonymous"></script>
+
+  <div id="mModal2" class="mode2">
+      <div id="m-content2">
+          <span class="close" id="inputClose">&times;</span>
+          <p>Please enter the name of a hero.</p>
+      </div>
+
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
   <script src="assets/javascript/script.js"></script>
   <script src="assets/javascript/circles.js"></script>
 </body>

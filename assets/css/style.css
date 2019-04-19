@@ -171,6 +171,20 @@ a:not([href]):not([tabindex]):focus, a:not([href]):not([tabindex]):hover {
   justify-content: center;
 }
 
+#submit {
+  background-color: red;
+  height: max-content;
+  margin-left: 10px;
+}
+
+#findHeroes {
+  display: inline-block;
+}
+
+#or {
+  color: white;
+}
+
 .modalGif {
   margin: 5px;
 }
@@ -222,6 +236,31 @@ font-size: 30px;
 line-height: 1.6;
 }
 
+.mode2 {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  border-radius: 25px;
+  }
+  
+  /* Modal Content */
+  #m-content2 {
+  background-color: red;
+  margin: auto;
+  border: 1px solid #888;
+  width: 50%;
+  font-size: 30px;
+  line-height: 1.6;
+  }
+
 /* The Close Button */
 .close {
 color: #aaaaaa;
@@ -236,6 +275,10 @@ padding: 10px;
 color: #000;
 text-decoration: none;
 cursor: pointer;
+}
+
+.form-group {
+  display: flex;
 }
 
 
