@@ -11,7 +11,7 @@ A database of superheroes from multiple comic book universes (i.e. Marvel, DC, D
 
 Sketch of Final Product (free hand or Balsamiq) - forthcoming screenshot.
 
-## APIs to be Used
+## APIs Used
 https://akabab.github.io/superhero-api/api/all.json
 Giphy API
 
